@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="<?= url('/barang') ?>">Tugas Web Laravel</a>
+                    <a href="<?= url('/blog') ?>">Tugas Web Laravel</a>
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
