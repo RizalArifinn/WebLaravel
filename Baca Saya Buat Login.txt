@@ -1,0 +1,3 @@
+
+Nb : Saat register, statusnya ganti manual lewat
+phpmyadmin menjadi 1 (admin)
