@@ -4,11 +4,30 @@
 @section('heading', 'Tambah Data')
 
     <form action="<?= url('/blog/buat') ?>" method="post">
-      <label>Judul Artikel : </label>
-      <input type="text" name="judul" class="form-control"><br/>
+      <div class="form-group">
+        <label>Judul Artikel : </label><br>
+        @if ($errors->has('judul'))
+          {{ $errors->first('judul') }}.<br>
+        @endif
+        <input type="text" name="judul" class="form-control" value="{{old('judul')}}">
+      </div>
 
-      <label>Deskripsi Artikel : </label>
-      <textarea name="desk" rows="8" cols="65" class="form-control"></textarea><br/>
+      <div class="form-group">
+        <label>Kategori Artikel : </label><br>
+        <select class="form-control" name="kategori">
+          @foreach($kategori as $kat)
+            <option value="{{$kat->id}}">{{$kat->nama_kategori}}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Deskripsi Artikel : </label><br>
+        @if ($errors->has('desk'))
+          {{ $errors->first('desk') }}.<br>
+        @endif
+        <textarea name="desk" rows="8" cols="65" class="form-control">{{old('desk')}}</textarea>
+      </div>
 
       {{ csrf_field() }}
       <input type="submit" name="submit" value="Tambah" class="btn btn-primary">

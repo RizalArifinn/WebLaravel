@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Laman Home')
+@section('title', 'Filter Kategori')
 @section('body')
 		<div class="container">
 
@@ -9,10 +9,6 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
-          <div class="jumbotron">
-            <h1>Hello {{session('nama')}}</h1>
-            <p>Selamat Datang di Blog Kami</p>
-          </div>
           <div class="row">
 						@foreach ($tampil as $row)
 							@foreach ($author as $thor)
@@ -37,7 +33,11 @@
 							</div>
 							<div class="panel-body">
 								@foreach($kategori as $kat)
-									<a href="<?= url('/kategori/'.$kat->id) ?>" class="list-group-item">{{$kat->nama_kategori}}</a>
+                  @if ($id == $kat->id)
+									  <a href="<?= url('/kategori/'.$kat->id) ?>" class="list-group-item active">{{$kat->nama_kategori}}</a>
+                  @else
+                    <a href="<?= url('/kategori/'.$kat->id) ?>" class="list-group-item">{{$kat->nama_kategori}}</a>
+                  @endif
 								@endforeach
 							</div>
 						</div>
@@ -46,9 +46,6 @@
       </div><!--/row-->
 
       <hr>
-@endsection
-@section('pagination')
-	{{ $tampil->render() }}
 @endsection
 @section('footer')
       <footer>

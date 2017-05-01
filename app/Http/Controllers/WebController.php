@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Blog;
+use App\Models\User;
+use App\Models\Kategori;
 
 class WebController extends Controller
 {
@@ -16,19 +18,29 @@ class WebController extends Controller
     public function desc($id)
     {
         $tampil = Blog::find($id);
-        return view('blog/tampil', ['tampil' => $tampil]);
+        $author = User::all();
+
+        return view('blog/tampil', ['tampil' => $tampil, 'author' => $author]);
     }
 
     public function create()
     {
-        return view('/blog/create');
+        $kategori = Kategori::all();
+        return view('/blog/create', ['kategori' => $kategori]);
     }
 
     public function buat(Request $request)
     {
+        $this->validate($request, [
+          'judul' => 'required|min:2',
+          'desk' => 'required|min:2'
+        ]);
+
         $query = Blog::create([
           'judul' => $request->judul,
-          'deskripsi' => $request->desk
+          'deskripsi' => $request->desk,
+          'author' => session('id'),
+          'id_kategori' => $request->kategori
         ]);
 
         if ($query) {
@@ -39,18 +51,25 @@ class WebController extends Controller
     public function update($id)
     {
         $tampil = Blog::find($id);
-        return view('blog/update', ['tampil' => $tampil]);
+        $kategori = Kategori::all();
+        return view('blog/update', ['tampil' => $tampil, 'kategori' => $kategori]);
     }
 
     public function edit(Request $request, $id)
     {
+      $this->validate($request,[
+        'judul' => 'required|min:2',
+        'desk' => 'required|min:2'
+      ]);
+
       $query = Blog::find($id)->update([
         'judul' => $request->judul,
+        'id_kategori' => $request->kategori,
         'deskripsi' => $request->desk
       ]);
 
       if ($query) {
-          return redirect('/blog/'.$id);
+          return redirect('/user/blog/'.$id);
       }
     }
 

@@ -1,18 +1,27 @@
 @extends('layouts.layout')
 @section('title', 'Laman Tampilan Barang')
-@section('heading', "Penjelasan Barang")
 @section('body')
 
-  <h2>{{ $tampil->judul }}</h2><hr>
-  {{ $tampil->deskripsi }}
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h5>Detail Artikel</h5>
+    </div>
 
-	<br/><br/>
-  <a href="<?= url('/blog/'.$tampil->id.'/update') ?>" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-  <a href="<?= url('/blog/'.$tampil->id.'/delete') ?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-  <br/>
-	<a href="<?= url('/blog') ?>" class="btn btn-default" style="margin-top: 15px;">
-    <span class="glyphicon glyphicon-log-out"></span> Kembali ke Laman Awal
-  </a>
+    <div class="panel-body">
+      @foreach ($author as $thor)
+        @if ($tampil->author == $thor->id)
+        <h2>{{ $tampil->judul }}</h2>
+        <p class="small"><span class="label label-success">{{$thor->nama}}</span> {{$tampil->created_at}}</p><hr>
+        {{ $tampil->deskripsi }}
+        @endif
+      @endforeach
+
+    	<br/><br/>
+    	<a href="<?= url('/blog') ?>" class="btn btn-default" style="margin-top: 15px;">
+        <span class="glyphicon glyphicon-log-out"></span> Kembali ke Laman Awal
+      </a>
+    </div>
+  </div>
 
 @endsection
 @section('footer', 'Copyright (c) 2017 Copyright Holder All Rights Reserved.')

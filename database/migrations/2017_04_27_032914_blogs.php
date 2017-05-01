@@ -12,12 +12,14 @@ class Blogs extends Migration
           $table->increments('id');
           $table->string('judul');
           $table->text('deskripsi');
+          $table->string('author');
+          $table->integer('id_kategori');
           $table->timestamps();
       });
     }
 
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('blogs');
     }
 }
